@@ -579,7 +579,7 @@ ul { list-style: none; }
   width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 62%;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
@@ -1179,7 +1179,7 @@ ul { list-style: none; }
   .section { padding: 64px 20px; }
 
   .story__grid { grid-template-columns: 1fr; gap: 32px; }
-  .story__image-wrap img { aspect-ratio: 4/3; object-position: center 20%; }
+  .story__image-wrap img { aspect-ratio: 4/3; object-position: center 58%; }
 
   .details__cards { grid-template-columns: 1fr; }
   .details__card--featured { grid-column: span 1; order: -1; }
