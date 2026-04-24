@@ -34,31 +34,45 @@
   'use strict';
 
   // ── OPENING OVERLAY ─────────────────────────────────────────
-  const opening    = document.getElementById('opening');
-  const openingBtn = document.getElementById('openingBtn');
-  const site       = document.getElementById('site');
-  const musicBar   = document.getElementById('musicBar');
-  const musicBarToggle = document.getElementById('musicBarToggle');
+  const opening      = document.getElementById('opening');
+  const openingBtn   = document.getElementById('openingBtn');
+  const site         = document.getElementById('site');
+  const musicToggle  = document.getElementById('musicToggle');
+  const bgMusic      = document.getElementById('bgMusic');
 
   if (openingBtn) {
     openingBtn.addEventListener('click', () => {
       opening.classList.add('hidden');
       site.classList.add('visible');
       site.removeAttribute('aria-hidden');
-
-      // Hiện music bar
-      if (musicBar) {
-        musicBar.classList.add('visible');
-        document.body.classList.add('music-open');
-      }
+      if (musicToggle) musicToggle.classList.add('visible');
+      tryPlay();
     });
   }
 
-  // ── MUSIC BAR TOGGLE ─────────────────────────────────────────
-  if (musicBarToggle && musicBar) {
-    musicBarToggle.addEventListener('click', () => {
-      const collapsed = musicBar.classList.toggle('collapsed');
-      document.body.classList.toggle('music-open', !collapsed);
+  // ── NHẠC NỀN (local file) ────────────────────────────────────
+  let playing = false;
+
+  function tryPlay() {
+    if (!bgMusic) return;
+    bgMusic.volume = 0.45;
+    bgMusic.play()
+      .then(() => { playing = true; syncMusicBtn(); })
+      .catch(() => { playing = false; });
+  }
+
+  function syncMusicBtn() {
+    if (!musicToggle) return;
+    musicToggle.textContent  = playing ? '♫' : '♪';
+    musicToggle.setAttribute('aria-label', playing ? 'Tắt nhạc' : 'Bật nhạc');
+  }
+
+  if (musicToggle) {
+    musicToggle.addEventListener('click', () => {
+      if (!bgMusic) return;
+      if (playing) { bgMusic.pause(); playing = false; }
+      else { bgMusic.play().catch(() => {}); playing = true; }
+      syncMusicBtn();
     });
   }
 
@@ -194,5 +208,58 @@
     if (!successMsg) return;
     successMsg.style.display = 'block';
     successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── SLIDESHOW ────────────────────────────────────────────────
+  const slideshow = document.getElementById('photoSlideshow');
+
+  if (slideshow) {
+    const slides      = Array.from(slideshow.querySelectorAll('.slide'));
+    const dotsWrap    = document.getElementById('slideDots');
+    const counter     = document.getElementById('slideCounter');
+    const btnPrev     = document.getElementById('slidePrev');
+    const btnNext     = document.getElementById('slideNext');
+    let   current     = 0;
+    let   autoTimer;
+
+    // Tạo dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'slideshow__dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Ảnh ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+
+    const dots = Array.from(dotsWrap.querySelectorAll('.slideshow__dot'));
+
+    function goTo(index) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
+      resetAuto();
+    }
+
+    function resetAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goTo(current + 1), 5000);
+    }
+
+    if (btnPrev) btnPrev.addEventListener('click', () => goTo(current - 1));
+    if (btnNext) btnNext.addEventListener('click', () => goTo(current + 1));
+
+    // Swipe support (mobile)
+    let touchStartX = 0;
+    slideshow.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    slideshow.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+    });
+
+    if (counter) counter.textContent = `1 / ${slides.length}`;
+    resetAuto();
   }
 })();

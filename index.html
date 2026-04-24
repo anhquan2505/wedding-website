@@ -9,26 +9,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Lato:wght@300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600&family=Lato:wght@300;400&subset=latin,latin-ext&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
 
-    <!-- ── NHẠC NỀN — ZingMP3 embed ─────────────────────── -->
-    <div class="music-bar" id="musicBar">
-      <button class="music-bar__tab" id="musicBarToggle" aria-label="Ẩn/hiện nhạc nền">
-        <span>♪ Nhạc nền</span>
-        <span class="music-bar__tab-arrow">▲</span>
-      </button>
-      <iframe
-        scrolling="no"
-        src="https://zingmp3.vn/embed/song/IW7ADEAC?start=false"
-        frameborder="0"
-        allowfullscreen="true"
-        title="Nhạc nền đám cưới"
-      ></iframe>
-    </div>
+    <!-- ── NHẠC NỀN — thêm file vào music/wedding.mp3 ─────── -->
+    <audio id="bgMusic" loop>
+      <source src="music/wedding.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button class="music-btn" id="musicToggle" aria-label="Bật nhạc nền">♪</button>
 
     <!-- ── MÀN HÌNH MỞ THIỆP ─────────────────────────────── -->
     <div class="opening" id="opening">
@@ -364,25 +356,32 @@
           <div class="ornament-divider" aria-hidden="true">
             <span></span><span>✦</span><span></span>
           </div>
-          <div class="gallery__grid">
-            <div class="gallery__item">
-              <img src="images/web/HTC07360.jpg" alt="Anh Quân và Vân Anh — ngoại cảnh" loading="lazy" />
+          <div class="slideshow" id="photoSlideshow">
+            <div class="slideshow__stage">
+              <div class="slide active">
+                <img src="images/web/HTC07360.jpg" alt="Anh Quân và Vân Anh" loading="lazy" />
+              </div>
+              <div class="slide">
+                <img src="images/web/HTC07867.jpg" alt="Anh Quân và Vân Anh" loading="lazy" />
+              </div>
+              <div class="slide">
+                <img src="images/web/HTC08497.jpg" alt="Anh Quân và Vân Anh" loading="lazy" />
+              </div>
+              <div class="slide">
+                <img src="images/web/HTC07903.jpg" alt="Anh Quân và Vân Anh" loading="lazy" />
+              </div>
+              <div class="slide">
+                <img src="images/web/HTC07740.jpg" alt="Anh Quân và Vân Anh" loading="lazy" />
+              </div>
+              <div class="slide">
+                <img src="images/web/HTC08565.jpg" alt="Anh Quân và Vân Anh" loading="lazy" />
+              </div>
             </div>
-            <div class="gallery__item">
-              <img src="images/web/HTC07867.jpg" alt="Anh Quân và Vân Anh — đầm cưới" loading="lazy" />
-            </div>
-            <div class="gallery__item">
-              <img src="images/web/HTC08497.jpg" alt="Anh Quân và Vân Anh — áo dài" loading="lazy" />
-            </div>
-            <div class="gallery__item">
-              <img src="images/web/HTC07903.jpg" alt="Anh Quân và Vân Anh — studio" loading="lazy" />
-            </div>
-            <div class="gallery__item">
-              <img src="images/web/HTC07740.jpg" alt="Anh Quân và Vân Anh — studio" loading="lazy" />
-            </div>
-            <div class="gallery__item">
-              <img src="images/web/HTC08565.jpg" alt="Anh Quân và Vân Anh — áo dài đỏ" loading="lazy" />
-            </div>
+
+            <button class="slideshow__btn slideshow__btn--prev" id="slidePrev" aria-label="Ảnh trước">&#8249;</button>
+            <button class="slideshow__btn slideshow__btn--next" id="slideNext" aria-label="Ảnh sau">&#8250;</button>
+            <div class="slideshow__dots" id="slideDots"></div>
+            <span class="slideshow__counter" id="slideCounter">1 / 6</span>
           </div>
         </div>
       </section>
