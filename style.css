@@ -1172,7 +1172,16 @@ ul { list-style: none; }
 
   .nav__links.open li:last-child a { border-bottom: none; }
 
-  .hero { background-position: 55% 40%; }
+  .hero {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.45) 0%,
+        rgba(10, 10, 10, 0.14) 55%,
+        rgba(10, 10, 10, 0.55) 100%
+      ),
+      url('images/web/HTC07004.jpg') center 25% / cover no-repeat;
+  }
   .hero__names { font-size: clamp(2.8rem, 11vw, 4rem); }
 
   .section { padding: 64px 20px; }
@@ -1222,7 +1231,18 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) and (orientation: landscape) {
-  .hero { min-height: 100svh; padding: 80px 24px 40px; background-position: 52% 35%; }
+  .hero {
+    min-height: 100svh;
+    padding: 80px 24px 40px;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.48) 0%,
+        rgba(10, 10, 10, 0.16) 55%,
+        rgba(10, 10, 10, 0.55) 100%
+      ),
+      url('images/web/HTC06983.jpg') 52% 35% / cover no-repeat;
+  }
   .opening__card { padding: 24px; }
   .opening__names { font-size: 2rem; }
 }
