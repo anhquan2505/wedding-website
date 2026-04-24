@@ -15,16 +15,20 @@
   </head>
   <body>
 
-    <!-- ── NHẠC NỀN ─────────────────────────────────────── -->
-    <!-- Thêm file nhạc vào thư mục music/ đặt tên wedding.mp3 -->
-    <audio id="bgMusic" loop>
-      <source src="music/wedding.mp3" type="audio/mpeg" />
-    </audio>
-
-    <button class="music-btn" id="musicToggle" aria-label="Bật/tắt nhạc nền">
-      <span class="music-btn__icon music-btn__icon--on">♪</span>
-      <span class="music-btn__icon music-btn__icon--off" hidden>♩</span>
-    </button>
+    <!-- ── NHẠC NỀN — ZingMP3 embed ─────────────────────── -->
+    <div class="music-bar" id="musicBar">
+      <button class="music-bar__tab" id="musicBarToggle" aria-label="Ẩn/hiện nhạc nền">
+        <span>♪ Nhạc nền</span>
+        <span class="music-bar__tab-arrow">▲</span>
+      </button>
+      <iframe
+        scrolling="no"
+        src="https://zingmp3.vn/embed/song/IW7ADEAC?start=false"
+        frameborder="0"
+        allowfullscreen="true"
+        title="Nhạc nền đám cưới"
+      ></iframe>
+    </div>
 
     <!-- ── MÀN HÌNH MỞ THIỆP ─────────────────────────────── -->
     <div class="opening" id="opening">

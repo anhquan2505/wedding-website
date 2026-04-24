@@ -1,11 +1,9 @@
 /* ============================================================
    Wedding Website — script.js
 
-   NHẠC NỀN:
-   Thêm file nhạc vào thư mục music/ với tên wedding.mp3
-   Có thể dùng nhạc không bản quyền từ:
-   - https://pixabay.com/music/search/wedding/
-   - https://freemusicarchive.org
+   NHẠC NỀN: ZingMP3 embed — bài hát IW7ADEAC
+   Khách click "Xem thiệp" → music bar hiện ra ở cuối trang.
+   Khách tự click play trên player ZingMP3.
 
    GOOGLE SHEETS SETUP (nếu chưa làm):
    1. Vào https://script.google.com → New project
@@ -39,58 +37,28 @@
   const opening    = document.getElementById('opening');
   const openingBtn = document.getElementById('openingBtn');
   const site       = document.getElementById('site');
-  const musicToggle = document.getElementById('musicToggle');
-  const bgMusic    = document.getElementById('bgMusic');
+  const musicBar   = document.getElementById('musicBar');
+  const musicBarToggle = document.getElementById('musicBarToggle');
 
   if (openingBtn) {
     openingBtn.addEventListener('click', () => {
-      // Mở thiệp
       opening.classList.add('hidden');
       site.classList.add('visible');
       site.removeAttribute('aria-hidden');
 
-      // Hiện nút nhạc
-      if (musicToggle) musicToggle.classList.add('visible');
-
-      // Thử phát nhạc (cần user interaction — đây là thời điểm hợp lệ)
-      tryPlayMusic();
+      // Hiện music bar
+      if (musicBar) {
+        musicBar.classList.add('visible');
+        document.body.classList.add('music-open');
+      }
     });
   }
 
-  // ── NHẠC NỀN ────────────────────────────────────────────────
-  let isPlaying = false;
-
-  function tryPlayMusic() {
-    if (!bgMusic) return;
-    bgMusic.volume = 0.5;
-    bgMusic.play()
-      .then(() => {
-        isPlaying = true;
-        updateMusicUI();
-      })
-      .catch(() => {
-        // File chưa có hoặc trình duyệt chặn → bỏ qua
-        isPlaying = false;
-      });
-  }
-
-  function updateMusicUI() {
-    if (!musicToggle) return;
-    musicToggle.classList.toggle('playing', isPlaying);
-    musicToggle.setAttribute('aria-label', isPlaying ? 'Tắt nhạc nền' : 'Bật nhạc nền');
-  }
-
-  if (musicToggle) {
-    musicToggle.addEventListener('click', () => {
-      if (!bgMusic) return;
-      if (isPlaying) {
-        bgMusic.pause();
-        isPlaying = false;
-      } else {
-        bgMusic.play().catch(() => {});
-        isPlaying = true;
-      }
-      updateMusicUI();
+  // ── MUSIC BAR TOGGLE ─────────────────────────────────────────
+  if (musicBarToggle && musicBar) {
+    musicBarToggle.addEventListener('click', () => {
+      const collapsed = musicBar.classList.toggle('collapsed');
+      document.body.classList.toggle('music-open', !collapsed);
     });
   }
 
