@@ -482,8 +482,9 @@ ul { list-style: none; }
   margin-bottom: 20px;
 }
 
-.section--dark .section__title { color: var(--clr-on-dark); }
-.section:not(.section--dark) .section__title { color: var(--clr-text); }
+.section--dark .section__title { color: var(--clr-white); }
+.section--dark .section__tag { color: rgba(255, 255, 255, 0.7); }
+.section:not(.section--dark) .section__title { color: var(--clr-accent); }
 
 /* Ornament divider */
 .ornament-divider {
@@ -595,7 +596,7 @@ ul { list-style: none; }
 }
 
 .story__text p { color: var(--clr-text-md); margin-bottom: 16px; }
-.story__text strong { color: var(--clr-text); font-weight: 400; }
+.story__text strong { color: var(--clr-accent); font-weight: 400; }
 
 /* ============================================================
    DETAILS
@@ -896,7 +897,7 @@ ul { list-style: none; }
 .family__name {
   font-family: var(--font-serif);
   font-size: 1.1rem;
-  color: var(--clr-text);
+  color: var(--clr-accent);
 }
 
 .family__child { margin-top: 24px; text-align: center; }
