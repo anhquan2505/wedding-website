@@ -379,7 +379,7 @@ ul { list-style: none; }
       rgba(10, 10, 10, 0.16) 55%,
       rgba(10, 10, 10, 0.55) 100%
     ),
-    url('images/web/HTC07354.jpg') 45% 40% / cover no-repeat;
+    url('images/web/HTC06983.jpg') center 35% / cover no-repeat;
 }
 
 .hero__inner {
@@ -1173,7 +1173,7 @@ ul { list-style: none; }
 
   .nav__links.open li:last-child a { border-bottom: none; }
 
-  .hero { background-position: 45% 55%; }
+  .hero { background-position: center 40%; }
   .hero__names { font-size: clamp(2.8rem, 11vw, 4rem); }
 
   .section { padding: 64px 20px; }
@@ -1209,7 +1209,7 @@ ul { list-style: none; }
 }
 
 @media (max-width: 480px) {
-  .hero { background-position: 45% 60%; }
+  .hero { background-position: center 45%; }
   .hero__names { font-size: clamp(2.4rem, 12vw, 3rem); }
 
   .countdown { gap: 2px; }
