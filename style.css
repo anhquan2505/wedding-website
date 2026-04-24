@@ -577,9 +577,8 @@ ul { list-style: none; }
 
 .story__image-wrap img {
   width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  object-position: center 62%;
+  height: auto;
+  display: block;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
@@ -1179,7 +1178,6 @@ ul { list-style: none; }
   .section { padding: 64px 20px; }
 
   .story__grid { grid-template-columns: 1fr; gap: 32px; }
-  .story__image-wrap img { aspect-ratio: 4/3; object-position: center 58%; }
 
   .details__cards { grid-template-columns: 1fr; }
   .details__card--featured { grid-column: span 1; order: -1; }
@@ -1225,7 +1223,6 @@ ul { list-style: none; }
 
 @media (max-width: 768px) and (orientation: landscape) {
   .hero { min-height: 100svh; padding: 80px 24px 40px; background-position: 52% 35%; }
-  .story__image-wrap img { aspect-ratio: 16/9; }
   .opening__card { padding: 24px; }
   .opening__names { font-size: 2rem; }
 }
