@@ -1,0 +1,5 @@
+# Raw photos (chỉ dùng images/web/ đã nén)
+images/*.jpg
+images/*.JPG
+images/*.png
+images/*.jpeg
