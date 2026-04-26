@@ -88,17 +88,25 @@
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
+  function setCountdownVal(el, val) {
+    if (!el || el.textContent === val) return;
+    el.textContent = val;
+    el.classList.remove('flip');
+    void el.offsetWidth; // trigger reflow để reset animation
+    el.classList.add('flip');
+  }
+
   function updateCountdown() {
     const diff = WEDDING_DATE - Date.now();
     if (diff <= 0) {
-      Object.values(countdownEls).forEach((el) => { if (el) el.textContent = '00'; });
+      Object.values(countdownEls).forEach((el) => setCountdownVal(el, '00'));
       return;
     }
     const s = Math.floor(diff / 1000);
-    if (countdownEls.days)    countdownEls.days.textContent    = pad(Math.floor(s / 86400));
-    if (countdownEls.hours)   countdownEls.hours.textContent   = pad(Math.floor((s % 86400) / 3600));
-    if (countdownEls.minutes) countdownEls.minutes.textContent = pad(Math.floor((s % 3600) / 60));
-    if (countdownEls.seconds) countdownEls.seconds.textContent = pad(s % 60);
+    setCountdownVal(countdownEls.days,    pad(Math.floor(s / 86400)));
+    setCountdownVal(countdownEls.hours,   pad(Math.floor((s % 86400) / 3600)));
+    setCountdownVal(countdownEls.minutes, pad(Math.floor((s % 3600) / 60)));
+    setCountdownVal(countdownEls.seconds, pad(s % 60));
   }
 
   updateCountdown();
@@ -128,12 +136,35 @@
   }
 
   // ── SCROLL REVEAL ────────────────────────────────────────────
-  const revealTargets = document.querySelectorAll(
-    '.story__grid, .details__card, .timeline__item, .family__side, ' +
-    '.gallery__item, .rsvp__form, .calendar, .countdown'
-  );
 
-  revealTargets.forEach((el) => el.classList.add('reveal'));
+  // Section headings
+  document.querySelectorAll('.section__tag, .section__title, .ornament-divider')
+    .forEach((el, i) => el.classList.add('reveal', `reveal--d${Math.min(i % 3 + 1, 4)}`));
+
+  // Story: slide in từ hai phía
+  const storyImage = document.querySelector('.story__image-wrap');
+  const storyText  = document.querySelector('.story__text');
+  if (storyImage) storyImage.classList.add('reveal', 'reveal--left');
+  if (storyText)  storyText.classList.add('reveal', 'reveal--right', 'reveal--d2');
+
+  // Detail cards: scale + stagger
+  document.querySelectorAll('.details__card').forEach((el, i) => {
+    el.classList.add('reveal', 'reveal--scale', `reveal--d${i + 1}`);
+  });
+
+  // Timeline: xen kẽ trái/phải + stagger
+  document.querySelectorAll('.timeline__item').forEach((el, i) => {
+    el.classList.add('reveal', i % 2 === 0 ? 'reveal--left' : 'reveal--right', `reveal--d${i + 1}`);
+  });
+
+  // Family sides: trái/phải
+  document.querySelectorAll('.family__side').forEach((el, i) => {
+    el.classList.add('reveal', i === 0 ? 'reveal--left' : 'reveal--right');
+  });
+
+  // Các phần còn lại
+  document.querySelectorAll('.rsvp__form, .calendar, .countdown')
+    .forEach((el) => el.classList.add('reveal', 'reveal--scale'));
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -144,10 +175,10 @@
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
 
-  revealTargets.forEach((el) => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
   // ── RSVP → GOOGLE SHEETS ────────────────────────────────────
   const form       = document.getElementById('rsvpForm');
