@@ -1039,7 +1039,7 @@ ul { list-style: none; }
   padding-right: 38px;
 }
 
-.form__radio-group { display: flex; flex-direction: column; gap: 10px; }
+.form__radio-group { display: flex; flex-direction: column; gap: 6px; }
 
 .radio-option {
   display: flex;
@@ -1050,15 +1050,55 @@ ul { list-style: none; }
   color: var(--clr-text-md) !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
-  padding: 8px 0;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 
+.radio-option:hover {
+  background: var(--clr-bg-alt);
+  border-color: var(--clr-border);
+}
+
+/* Custom radio — cross-platform (iOS + Android) */
 .radio-option input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
-  accent-color: var(--clr-accent);
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 2px solid var(--clr-border);
+  border-radius: 50%;
+  background: var(--clr-white);
   cursor: pointer;
+  position: relative;
+  transition: border-color var(--transition);
+}
+
+.radio-option input[type="radio"]::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--clr-accent);
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+
+.radio-option input[type="radio"]:checked {
+  border-color: var(--clr-accent);
+}
+
+.radio-option input[type="radio"]:checked::after {
+  transform: scale(1);
+}
+
+/* Highlight toàn dòng khi được chọn */
+.radio-option:has(input:checked) {
+  background: #FFF0F2;
+  border-color: var(--clr-accent-lt);
+  color: var(--clr-accent) !important;
 }
 
 .form__submit {
