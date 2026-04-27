@@ -3,3 +3,7 @@ images/*.jpg
 images/*.JPG
 images/*.png
 images/*.jpeg
+
+# Ngoại lệ: QR code cần thiết cho trang web
+!images/qrcode.jpg
+!images/qrcode_full.jpg
